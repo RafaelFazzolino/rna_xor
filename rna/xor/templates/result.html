@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Resultado</title>
+</head>
+<body>
+	<h1>Resultado</h1>
+	<p>Nome: {{ form.name }}!</p>
+	<h2>Resultados do treinamento:</h2>
+	<p>Erro: {{error}}</p>
+	<p>Numero de epocas: {{ epocas }}</p>
+	<p>Pesos Finais: {{ pesos_finais }}</p>
+	<p>0 xor 0 = {{ result00 }}</p>
+	<p>0 xor 1 = {{ result01 }}</p>
+	<p>1 xor 0 = {{ result10 }}</p>
+	<p>1 xor 1 = {{ result11 }}</p>
+	{% for err in errors %}
+		<p>{{ err }}</p>
+	{% endfor %}
+	{% for it in iteracoes %}
+		<p>{{ it }}</p>
+	{% endfor %}
+</body>
+</html>
