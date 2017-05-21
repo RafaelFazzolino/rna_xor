@@ -5,9 +5,38 @@
 	<title>Resultado</title>
 </head>
 <body>
-	<h1>Resultado</h1>
-	<p>Nome: {{ form.name }}!</p>
-	<h2>Resultados do treinamento:</h2>
+	<h1>Resultados do treinamento:</h1>
+
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <div id="chart_div"></div>
+
+	<script type="text/javascript">
+		google.charts.load('current', {packages: ['corechart', 'line']});
+		google.charts.setOnLoadCallback(drawBasic);
+
+		function drawBasic() {
+
+		      var data = new google.visualization.DataTable();
+		      data.addColumn('number', 'Epoca');
+		      data.addColumn('number', 'Erro');
+
+		      data.addRows({{ graph|safe }});
+
+		      var options = {
+		        hAxis: {
+		          title: 'Time'
+		        },
+		        vAxis: {
+		          title: 'Popularity'
+		        }
+		      };
+
+		      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+		      chart.draw(data, options);
+		    }
+	</script>
+
 	<p>Erro: {{error}}</p>
 	<p>Numero de epocas: {{ epocas }}</p>
 	<p>Pesos Finais: {{ pesos_finais }}</p>
@@ -15,11 +44,5 @@
 	<p>0 xor 1 = {{ result01 }}</p>
 	<p>1 xor 0 = {{ result10 }}</p>
 	<p>1 xor 1 = {{ result11 }}</p>
-	{% for err in errors %}
-		<p>{{ err }}</p>
-	{% endfor %}
-	{% for it in iteracoes %}
-		<p>{{ it }}</p>
-	{% endfor %}
 </body>
 </html>

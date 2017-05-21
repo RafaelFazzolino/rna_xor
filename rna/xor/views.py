@@ -1,9 +1,10 @@
-from django.shortcuts import render
+import json
+
+from django.shortcuts import render, render_to_response
 from pybrain.datasets import SupervisedDataSet
 from pybrain.supervised import BackpropTrainer
 from pybrain.tools.shortcuts import buildNetwork
 from rna.xor.forms import XorForm
-from rna.xor.my_backprop import myOwn_BackpropTrainer
 
 
 def index(request):
@@ -31,9 +32,9 @@ def result(request, form):
     # dimensões de entrada e saida, argumento 2 é a quantidade de camadas intermediárias
     network = buildNetwork(dataset.indim, dados['num_camadas'], dataset.outdim, dados['bias'])
     trainer = BackpropTrainer(network, dataset, dados['learningrate'], dados['momentum'])
-    trainer.trainEpochs(dados['epochs'])
+    #trainer.trainEpochs(dados['epochs'])
 
-    max_error = 1
+    #max_error = 1
     error = 0.00001
     # epocas = 1000
 
@@ -62,8 +63,18 @@ def result(request, form):
         print('Lista de erros', len(errors))
         print('Lista de it', len(it))
 
-    context = {'form':form.cleaned_data,
+    graph = []
+    idx = 0
+    for e in errors:
+        temp = []
+        temp.append(idx)
+        temp.append(e)
+        idx +=1
+        graph.append(temp)
+
+    context = {'form': form.cleaned_data,
                'error': error,
+               'graph': json.dumps(graph),
                'errors': errors,
                'iteracoes': it,
                'epocas': epocasPercorridas,
