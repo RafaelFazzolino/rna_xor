@@ -2,7 +2,9 @@ from django import forms
 from rna.xor.models import Xor
 
 
-class XorForm(forms.ModelForm):
-    class Meta:
-        model = Xor
-        fields = ('num_camadas', 'bias', 'learningrate', 'momentum', 'epochs',)
+class XorForm(forms.Form):
+    num_camadas = forms.IntegerField()
+    bias = forms.BooleanField(initial=False, required=False)
+    learningrate = forms.FloatField()
+    momentum = forms.FloatField()
+    epochs = forms.IntegerField()

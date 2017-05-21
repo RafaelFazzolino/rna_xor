@@ -29,16 +29,17 @@ def result(request, form):
     dataset.addSample([1, 0], [1])
     dataset.addSample([1, 1], [0])
 
+    if dados['bias'] is None:
+        bias = False
+    else:
+        bias = True
+
     # dimensões de entrada e saida, argumento 2 é a quantidade de camadas intermediárias
-    network = buildNetwork(dataset.indim, dados['num_camadas'], dataset.outdim, dados['bias'])
-    trainer = BackpropTrainer(network, dataset, dados['learningrate'], dados['momentum'])
-    #trainer.trainEpochs(dados['epochs'])
+    network = buildNetwork(dataset.indim, int(dados['num_camadas']), dataset.outdim, bias=bias)
+    trainer = BackpropTrainer(network, dataset, learningrate=float(dados['learningrate']), momentum=float(dados['momentum']))
 
-    #max_error = 1
     error = 0.00001
-    # epocas = 1000
 
-    # inicializando contador de epocas
     epocasPercorridas = 0
 
     errors = []
@@ -50,19 +51,6 @@ def result(request, form):
         it.append(epocasPercorridas)
         if error == 0:
             break
-
-        print("\n\nPesos finais: ", network.params)
-        print("\nErro final: ", error)
-
-        print("\n\nTotal de epocas percorridas: ", epocasPercorridas)
-
-        print('\n\n1 XOR 1: Esperado = 0, Calculado = ', network.activate([1, 1])[0])
-        print('1 XOR 0: Esperado = 1, Calculado =', network.activate([1, 0])[0])
-        print('0 XOR 1: Esperado = 1, Calculado =', network.activate([0, 1])[0])
-        print('0 XOR 0: Esperado = 0, Calculado =', network.activate([0, 0])[0])
-        print('Lista de erros', len(errors))
-        print('Lista de it', len(it))
-
     graph = []
     idx = 0
     for e in errors:
@@ -75,8 +63,6 @@ def result(request, form):
     context = {'form': form.cleaned_data,
                'error': error,
                'graph': json.dumps(graph),
-               'errors': errors,
-               'iteracoes': it,
                'epocas': epocasPercorridas,
                'pesos_finais': network.params,
                'result00': network.activate([0, 0])[0],
