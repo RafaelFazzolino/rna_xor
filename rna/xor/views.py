@@ -38,19 +38,17 @@ def result(request, form):
     network = buildNetwork(dataset.indim, int(dados['num_camadas']), dataset.outdim, bias=bias)
     trainer = BackpropTrainer(network, dataset, learningrate=float(dados['learningrate']), momentum=float(dados['momentum']))
 
-    error = 0.00001
+    error = 1.00000000
 
     epocasPercorridas = 0
 
     errors = []
     it = []
-    while epocasPercorridas < dados['epochs']:
+    while epocasPercorridas < dados['epochs'] and error > dados['erro_max']:
         error = trainer.train()
         epocasPercorridas += 1
         errors.append(error)
         it.append(epocasPercorridas)
-        if error == 0:
-            break
     graph = []
     idx = 0
     for e in errors:

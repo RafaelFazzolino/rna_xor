@@ -8,3 +8,4 @@ class XorForm(forms.Form):
     learningrate = forms.FloatField()
     momentum = forms.FloatField()
     epochs = forms.IntegerField()
+    erro_max = forms.FloatField()

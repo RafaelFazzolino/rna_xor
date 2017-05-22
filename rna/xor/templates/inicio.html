@@ -7,9 +7,9 @@
 {#	    <div class="input-group">#}
 {#            {{ form.as_p }}#}
 {#	    </div>#}
-		<div style="margin-left: 20px; width: 500px; float: left; border-radius: 10px; margin-top: 40px; background-color: #1b6d85">
+		<div style="margin-left: 30%; width: 600px; float: left; border-radius: 10px; margin-top: 40px; background-color: #1b6d85;">
 		    <div class="form-group" style="margin: 2%;">
-		        <label class="col-md-3 control-label" for="name">Numero de Camadas:</label>
+		        <label class="col-md-3 control-label" for="name" style="color: white;">Número de Camadas:</label>
 		        <div class="col-md-9">
 		          {% render_field form.num_camadas class+="form-control" placeholder="Numero de Camadas" %}
 		          {% if form.num_camadas.errors %}
@@ -18,7 +18,7 @@
 		        </div>
 		    </div>
 	        <div class="form-group" style="margin: 2%;">
-		        <label class="col-md-3 control-label" for="name">Taxa de Aprendizado:</label>
+		        <label class="col-md-3 control-label" for="name" style="color: white;">Aprendizado:</label>
 		        <div class="col-md-9">
 		          {% render_field form.learningrate class+="form-control" placeholder="Aprendizado" %}
 		          {% if form.learningrate.errors %}
@@ -27,7 +27,7 @@
 		        </div>
 		    </div>
 	        <div class="form-group" style="margin: 2%;">
-		        <label class="col-md-3 control-label" for="name">Momentum:</label>
+		        <label class="col-md-3 control-label" for="name" style="color: white;">Momentum:</label>
 		        <div class="col-md-9">
 		          {% render_field form.momentum class+="form-control" placeholder="Momentum" %}
 		          {% if form.momentum.errors %}
@@ -36,7 +36,7 @@
 		        </div>
 		    </div>
 	        <div class="form-group" style="margin: 2%;">
-		        <label class="col-md-3 control-label" for="name">Quantidade de Epocas:</label>
+		        <label class="col-md-3 control-label" for="name" style="color: white;">Epocas:</label>
 		        <div class="col-md-9">
 		          {% render_field form.epochs class+="form-control" placeholder="Epocas" %}
 		          {% if form.epochs.errors %}
@@ -45,7 +45,7 @@
 		        </div>
 		    </div>
 	        <div class="form-group" style="margin: 2%;">
-		        <label class="col-md-3 control-label" for="name">Bias:</label>
+		        <label class="col-md-3 control-label" for="name" style="color: white;">Bias:</label>
 		        <div class="col-md-9">
 		          {% render_field form.bias class+="" %}
 		          {% if form.bias.errors %}
@@ -53,6 +53,17 @@
 		          {% endif %}
 		        </div>
 		    </div>
+
+			<div class="form-group" style="margin: 2%;">
+		        <label class="col-md-3 control-label" for="name" style="color: white;">Erro máximo:</label>
+		        <div class="col-md-9">
+		          {% render_field form.erro_max class+="form-control" placeholder="Erro máximo" %}
+		          {% if form.erro_max.errors %}
+		          <div class="alert alert-danger" role="alert">{{form.erro_max.errors}}</div>
+		          {% endif %}
+		        </div>
+		    </div>
+
 			<div class="form-group" style="margin: 2%;">
 	            <div class="col-md-12 text-right">
 	              <button type="submit" class="btn btn-primary btn-lg">Executar</button>
