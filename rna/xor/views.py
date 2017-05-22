@@ -16,7 +16,7 @@ def index(request):
     else:
         form = XorForm()
     context['form'] = form
-    return render(request, 'index.html', context)
+    return render(request, 'inicio.html', context)
 
 
 def result(request, form):

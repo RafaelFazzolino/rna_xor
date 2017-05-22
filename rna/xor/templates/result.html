@@ -1,48 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Resultado</title>
-</head>
-<body>
-	<h1>Resultados do treinamento:</h1>
+{% extends 'index.html' %}
+{% block content %}
 
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<h2>Resultados do treinamento:</h2>
+
     <div id="chart_div"></div>
 
-	<script type="text/javascript">
-		google.charts.load('current', {packages: ['corechart', 'line']});
-		google.charts.setOnLoadCallback(drawBasic);
+	<div style="margin-top: 5%; float: left;">
+		<b>Erro:</b> <span class="label label-danger" style="font-size: larger">{{ error }}</span>
+		<b>Epocas:</b> <span class="label label-warning" style="font-size: larger">{{ epocas }}</span>
+	</div>
 
-		function drawBasic() {
+	<div style="float:right; width: 200px; margin-right: 40%; background-color: #8c8c8c; margin-top: 5%; font-size: larger">
+		<b>Pesos Finais:</b>
+		<ul class="list-group">
+			{% for peso in pesos_finais %}
+		        <li class="list-group-item">{{ peso }}</li>
+			{% endfor %}
+		</ul>
+	</div>
 
-		      var data = new google.visualization.DataTable();
-		      data.addColumn('number', 'Epoca');
-		      data.addColumn('number', 'Erro');
-
-		      data.addRows({{ graph|safe }});
-
-		      var options = {
-		        hAxis: {
-		          title: 'Epoca'
-		        },
-		        vAxis: {
-		          title: 'Erro'
-		        }
-		      };
-
-		      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-
-		      chart.draw(data, options);
-		    }
-	</script>
-
-	<p>Erro: {{error}}</p>
-	<p>Numero de epocas: {{ epocas }}</p>
-	<p>Pesos Finais: {{ pesos_finais }}</p>
-	<p>0 xor 0 = {{ result00 }}</p>
-	<p>0 xor 1 = {{ result01 }}</p>
-	<p>1 xor 0 = {{ result10 }}</p>
-	<p>1 xor 1 = {{ result11 }}</p>
-</body>
-</html>
+	<div style="float: left; margin-top: 5%;">
+		<table class="table" style="width: 300px; background-color: #5cb85c; font-size: larger; margin-left: 5%;">
+	    <thead>
+	      <tr>
+	        <th>Input</th>
+	        <th>Result</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+	        <td>0 XOR 0</td>
+	        <td>{{ result00 }}</td>
+	      </tr>
+	      <tr>
+	        <td>0 XOR 1</td>
+	        <td>{{ result01 }}</td>
+	      </tr>
+	      <tr>
+	        <td>1 XOR 0</td>
+	        <td>{{ result10 }}</td>
+	      </tr>
+	      <tr>
+	        <td>1 XOR 1</td>
+	        <td>{{ result11 }}</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	</div>
+{% endblock %}
