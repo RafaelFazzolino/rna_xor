@@ -5,7 +5,7 @@ from pybrain.datasets import SupervisedDataSet
 from pybrain.supervised import BackpropTrainer
 from pybrain.tools.shortcuts import buildNetwork
 from rna.xor.forms import XorForm
-
+import numpy as np
 
 def index(request):
     context = {}
@@ -38,6 +38,10 @@ def result(request, form):
     network = buildNetwork(dataset.indim, int(dados['num_camadas']), dataset.outdim, bias=bias)
     trainer = BackpropTrainer(network, dataset, learningrate=float(dados['learningrate']), momentum=float(dados['momentum']))
 
+    pesos_iniciais = network.params
+
+    network._setParameters(np.random.uniform(dados['peso_start'], dados['peso_end'], network.params.shape[0]))
+
     error = 1.00000000
 
     epocasPercorridas = 0
@@ -62,6 +66,7 @@ def result(request, form):
                'error': error,
                'graph': json.dumps(graph),
                'epocas': epocasPercorridas,
+               'pesos_iniciais': pesos_iniciais,
                'pesos_finais': network.params,
                'result00': network.activate([0, 0])[0],
                'result01': network.activate([0, 1])[0],

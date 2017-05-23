@@ -10,15 +10,6 @@
 		<b>Epocas:</b> <span class="label label-warning" style="font-size: larger">{{ epocas }}</span>
 	</div>
 
-	<div style="float:right; width: 200px; margin-right: 40%; background-color: #8c8c8c; margin-top: 5%; font-size: larger">
-		<b>Pesos Finais:</b>
-		<ul class="list-group">
-			{% for peso in pesos_finais %}
-		        <li class="list-group-item">{{ peso }}</li>
-			{% endfor %}
-		</ul>
-	</div>
-
 	<div style="float: left; margin-top: 5%; width: 400px;">
 		<table class="table" style="width: 400px; background-color: #5cb85c; font-size: larger; margin-left: 5%;">
 	    <thead>
@@ -51,5 +42,23 @@
 	      </tr>
 	    </tbody>
 	  </table>
+	</div>
+
+	<div style="float:left; width: 200px; margin-left: 5%; background-color: #8c8c8c; margin-top: 5%; font-size: larger">
+		<b>Pesos Iniciais:</b>
+		<ul class="list-group">
+			{% for peso in pesos_iniciais %}
+		        <li class="list-group-item">{{ peso }}</li>
+			{% endfor %}
+		</ul>
+	</div>
+
+	<div style="float:right; width: 200px; margin-right: 15%; background-color: #8c8c8c; margin-top: 5%; font-size: larger">
+		<b>Pesos Finais:</b>
+		<ul class="list-group">
+			{% for peso in pesos_finais %}
+		        <li class="list-group-item">{{ peso }}</li>
+			{% endfor %}
+		</ul>
 	</div>
 {% endblock %}
